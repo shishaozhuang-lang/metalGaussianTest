@@ -1,0 +1,147 @@
+define internal fastcc <3 x half> @_Z18ComputeColorFromSHIDhEDv3_T_31PrecomputeDistanceAndColorInputDv3_fS3_(half %0, <3 x half> %1, %struct.Coeff1Attribute %2, %struct.Coeff2Attribute %3, %struct.Coeff3Attribute %4, <3 x float> noundef %5, <3 x float> noundef %6) unnamed_addr #4 {
+  %8 = extractvalue %struct.Coeff2Attribute %3, 0
+  %9 = extractvalue %struct.Coeff2Attribute %3, 1
+  %10 = extractvalue %struct.Coeff2Attribute %3, 2
+  %11 = extractvalue %struct.Coeff2Attribute %3, 3
+  %12 = extractvalue %struct.Coeff2Attribute %3, 4
+  %13 = extractvalue %struct.Coeff3Attribute %4, 0
+  %14 = extractvalue %struct.Coeff3Attribute %4, 1
+  %15 = extractvalue %struct.Coeff3Attribute %4, 2
+  %16 = extractvalue %struct.Coeff3Attribute %4, 3
+  %17 = extractvalue %struct.Coeff3Attribute %4, 4
+  %18 = extractvalue %struct.Coeff3Attribute %4, 5
+  %19 = extractvalue %struct.Coeff3Attribute %4, 6
+  %20 = fmul fast <3 x half> %1, <half 0xH3483, half 0xH3483, half 0xH3483>
+  %21 = load i8, i8 addrspace(2)* @_ZL6kUseC1, align 1, !tbaa !48, !range !82
+  %22 = icmp eq i8 %21, 0
+  br i1 %22, label %138, label %23
+
+23:                                               ; preds = %7
+  %24 = extractvalue %struct.Coeff1Attribute %2, 2
+  %25 = extractvalue %struct.Coeff1Attribute %2, 1
+  %26 = extractvalue %struct.Coeff1Attribute %2, 0
+  %27 = fsub fast <3 x float> %5, %6
+  %28 = tail call fast float @air.dot.v3f32(<3 x float> %27, <3 x float> %27) #5
+  %29 = tail call fast float @air.fast_rsqrt.f32(float %28) #5
+  %30 = insertelement <3 x float> poison, float %29, i64 0
+  %31 = shufflevector <3 x float> %30, <3 x float> poison, <3 x i32> zeroinitializer
+  %32 = fmul fast <3 x float> %31, %27
+  %33 = tail call fast <3 x half> @air.convert.f.v3f16.f.v3f32(<3 x float> %32) #5
+  %34 = extractelement <3 x half> %33, i64 1
+  %35 = fneg fast half %34
+  %36 = insertelement <3 x half> poison, half %35, i64 0
+  %37 = shufflevector <3 x half> %36, <3 x half> poison, <3 x i32> zeroinitializer
+  %38 = fmul fast <3 x half> %37, %26
+  %39 = extractelement <3 x half> %33, i64 2
+  %40 = shufflevector <3 x half> %33, <3 x half> undef, <3 x i32> <i32 2, i32 2, i32 2>
+  %41 = fmul fast <3 x half> %40, %25
+  %42 = extractelement <3 x half> %33, i64 0
+  %43 = shufflevector <3 x half> %33, <3 x half> poison, <3 x i32> zeroinitializer
+  %44 = fmul fast <3 x half> %24, %43
+  %45 = fsub fast <3 x half> %41, %44
+  %46 = fadd fast <3 x half> %45, %38
+  %47 = fmul fast <3 x half> %46, <half 0xH37D1, half 0xH37D1, half 0xH37D1>
+  %48 = fadd fast <3 x half> %47, %20
+  %49 = load i8, i8 addrspace(2)* @_ZL6kUseC2, align 1, !tbaa !48, !range !82
+  %50 = icmp eq i8 %49, 0
+  br i1 %50, label %138, label %51
+
+51:                                               ; preds = %23
+  %52 = fmul fast half %42, %42
+  %53 = fmul fast half %34, %34
+  %54 = fmul fast half %39, %39
+  %55 = fmul fast half %42, %34
+  %56 = fmul fast half %55, 0xH3C5F
+  %57 = insertelement <3 x half> poison, half %56, i64 0
+  %58 = shufflevector <3 x half> %57, <3 x half> poison, <3 x i32> zeroinitializer
+  %59 = fmul fast <3 x half> %58, %8
+  %60 = fmul fast half %39, 0xHBC5F
+  %61 = fmul fast half %60, %34
+  %62 = insertelement <3 x half> poison, half %61, i64 0
+  %63 = shufflevector <3 x half> %62, <3 x half> poison, <3 x i32> zeroinitializer
+  %64 = fmul fast <3 x half> %63, %9
+  %65 = fadd fast <3 x half> %59, %64
+  %66 = fmul fast half %54, 0xH4000
+  %67 = fadd fast half %52, %53
+  %68 = fsub fast half %66, %67
+  %69 = fmul fast half %68, 0xH350C
+  %70 = insertelement <3 x half> poison, half %69, i64 0
+  %71 = shufflevector <3 x half> %70, <3 x half> poison, <3 x i32> zeroinitializer
+  %72 = fmul fast <3 x half> %71, %10
+  %73 = fmul fast half %60, %42
+  %74 = insertelement <3 x half> poison, half %73, i64 0
+  %75 = shufflevector <3 x half> %74, <3 x half> poison, <3 x i32> zeroinitializer
+  %76 = fmul fast <3 x half> %75, %11
+  %77 = fsub fast half %52, %53
+  %78 = fmul fast half %77, 0xH385F
+  %79 = insertelement <3 x half> poison, half %78, i64 0
+  %80 = shufflevector <3 x half> %79, <3 x half> poison, <3 x i32> zeroinitializer
+  %81 = fmul fast <3 x half> %80, %12
+  %82 = fadd fast <3 x half> %65, %76
+  %83 = fadd fast <3 x half> %82, %81
+  %84 = fadd fast <3 x half> %83, %48
+  %85 = fadd fast <3 x half> %84, %72
+  %86 = load i8, i8 addrspace(2)* @_ZL6kUseC3, align 1, !tbaa !48, !range !82
+  %87 = icmp eq i8 %86, 0
+  br i1 %87, label %138, label %88
+
+88:                                               ; preds = %51
+  %89 = fmul fast half %34, 0xHB8B8
+  %90 = fmul fast half %52, 0xH4200
+  %91 = fsub fast half %90, %53
+  %92 = fmul fast half %89, %91
+  %93 = insertelement <3 x half> poison, half %92, i64 0
+  %94 = shufflevector <3 x half> %93, <3 x half> poison, <3 x i32> zeroinitializer
+  %95 = fmul fast <3 x half> %94, %13
+  %96 = fmul fast half %39, 0xH41C8
+  %97 = fmul fast half %96, %55
+  %98 = insertelement <3 x half> poison, half %97, i64 0
+  %99 = shufflevector <3 x half> %98, <3 x half> poison, <3 x i32> zeroinitializer
+  %100 = fmul fast <3 x half> %99, %14
+  %101 = fmul fast half %54, 0xH4400
+  %102 = fsub fast half %101, %67
+  %103 = fmul fast half %102, 0xHB750
+  %104 = fmul fast half %103, %34
+  %105 = insertelement <3 x half> poison, half %104, i64 0
+  %106 = shufflevector <3 x half> %105, <3 x half> poison, <3 x i32> zeroinitializer
+  %107 = fmul fast <3 x half> %106, %15
+  %108 = fmul fast half %39, 0xH35F9
+  %109 = fmul fast half %53, 0xH4200
+  %110 = fadd fast half %109, %90
+  %111 = fsub fast half %66, %110
+  %112 = fmul fast half %108, %111
+  %113 = insertelement <3 x half> poison, half %112, i64 0
+  %114 = shufflevector <3 x half> %113, <3 x half> poison, <3 x i32> zeroinitializer
+  %115 = fmul fast <3 x half> %114, %16
+  %116 = fmul fast half %103, %42
+  %117 = insertelement <3 x half> poison, half %116, i64 0
+  %118 = shufflevector <3 x half> %117, <3 x half> poison, <3 x i32> zeroinitializer
+  %119 = fmul fast <3 x half> %118, %17
+  %120 = fmul fast half %39, 0xH3DC8
+  %121 = fmul fast half %120, %77
+  %122 = insertelement <3 x half> poison, half %121, i64 0
+  %123 = shufflevector <3 x half> %122, <3 x half> poison, <3 x i32> zeroinitializer
+  %124 = fmul fast <3 x half> %123, %18
+  %125 = fmul fast half %42, 0xHB8B8
+  %126 = fsub fast half %52, %109
+  %127 = fmul fast half %125, %126
+  %128 = insertelement <3 x half> poison, half %127, i64 0
+  %129 = shufflevector <3 x half> %128, <3 x half> poison, <3 x i32> zeroinitializer
+  %130 = fmul fast <3 x half> %129, %19
+  %131 = fadd fast <3 x half> %119, %107
+  %132 = fadd fast <3 x half> %131, %100
+  %133 = fadd fast <3 x half> %132, %124
+  %134 = fadd fast <3 x half> %133, %95
+  %135 = fadd fast <3 x half> %134, %130
+  %136 = fadd fast <3 x half> %135, %115
+  %137 = fadd fast <3 x half> %136, %85
+  br label %138
+
+138:                                              ; preds = %88, %51, %23, %7
+  %139 = phi <3 x half> [ %20, %7 ], [ %48, %23 ], [ %137, %88 ], [ %85, %51 ]
+  %140 = fadd fast <3 x half> %139, <half 0xH3800, half 0xH3800, half 0xH3800>
+  %141 = tail call fast <3 x half> @air.fmax.v3f16(<3 x half> %140, <3 x half> zeroinitializer) #5
+  ret <3 x half> %141
+}
+
+; Function Attrs: mustprogress nofree nosync nounwind readnone willreturn

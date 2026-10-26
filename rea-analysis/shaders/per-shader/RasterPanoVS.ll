@@ -1,0 +1,61 @@
+define <{ <4 x float>, <2 x float> }> @RasterPanoVS(%struct._texture_2d_t addrspace(1)* %0, %"struct.metal::matrix.1" addrspace(2)* nocapture noundef readonly align 16 dereferenceable(64) "air-buffer-no-alias" %1, float addrspace(2)* nocapture noundef readonly align 4 dereferenceable(4) "air-buffer-no-alias" %2, i32 noundef %3, i32 noundef %4) local_unnamed_addr #0 {
+  %6 = tail call i32 @air.get_width_texture_2d(%struct._texture_2d_t addrspace(1)* nocapture readonly %0, i32 0) #3, !alias.scope !25, !noalias !28
+  %7 = tail call i32 @air.get_height_texture_2d(%struct._texture_2d_t addrspace(1)* nocapture readonly %0, i32 0) #3, !alias.scope !25, !noalias !28
+  %8 = lshr i32 %3, 1
+  %9 = and i32 %3, 1
+  %10 = add i32 %9, %4
+  %11 = insertelement <2 x i32> undef, i32 %8, i64 0
+  %12 = insertelement <2 x i32> %11, i32 %10, i64 1
+  %13 = tail call { <4 x float>, i8 } @air.read_texture_2d.v4f32(%struct._texture_2d_t addrspace(1)* nocapture readonly %0, <2 x i32> %12, i32 0, i32 1) #3, !alias.scope !25, !noalias !28
+  %14 = extractvalue { <4 x float>, i8 } %13, 0
+  %15 = extractelement <4 x float> %14, i64 0
+  %16 = load float, float addrspace(2)* %2, align 4, !tbaa !31, !alias.scope !35, !noalias !36
+  %17 = fmul fast float %15, %16
+  %18 = tail call fast <2 x float> @air.convert.f.v2f32.u.v2i32(<2 x i32> %12) #4
+  %19 = fadd fast <2 x float> %18, <float 5.000000e-01, float 5.000000e-01>
+  %20 = tail call fast float @air.convert.f.f32.u.i32(i32 %6) #4
+  %21 = insertelement <2 x float> undef, float %20, i64 0
+  %22 = tail call fast float @air.convert.f.f32.u.i32(i32 %7) #4
+  %23 = insertelement <2 x float> %21, float %22, i64 1
+  %24 = fdiv fast <2 x float> %19, %23
+  %25 = extractelement <2 x float> %24, i64 0
+  %26 = fmul fast float %25, 0x401921FB60000000
+  %27 = extractelement <2 x float> %24, i64 1
+  %28 = fmul fast float %27, 0x400921FB60000000
+  %29 = insertelement <3 x float> poison, float %17, i64 0
+  %30 = shufflevector <3 x float> %29, <3 x float> poison, <3 x i32> zeroinitializer
+  %31 = tail call fast float @air.fast_sin.f32(float %28) #4
+  %32 = tail call fast float @air.fast_sin.f32(float %26) #4
+  %33 = fmul fast float %32, %31
+  %34 = tail call fast float @air.fast_cos.f32(float %28) #4
+  %35 = fneg fast float %34
+  %36 = fneg fast float %31
+  %37 = tail call fast float @air.fast_cos.f32(float %26) #4
+  %38 = fmul fast float %37, %36
+  %39 = insertelement <3 x float> undef, float %33, i64 0
+  %40 = insertelement <3 x float> %39, float %35, i64 1
+  %41 = insertelement <3 x float> %40, float %38, i64 2
+  %42 = fmul fast <3 x float> %41, %30
+  %43 = getelementptr inbounds %"struct.metal::matrix.1", %"struct.metal::matrix.1" addrspace(2)* %1, i64 0, i32 0, i64 0
+  %44 = load <4 x float>, <4 x float> addrspace(2)* %43, align 16, !tbaa !37, !alias.scope !38, !noalias !39
+  %45 = shufflevector <3 x float> %42, <3 x float> undef, <4 x i32> zeroinitializer
+  %46 = fmul fast <4 x float> %45, %44
+  %47 = getelementptr inbounds %"struct.metal::matrix.1", %"struct.metal::matrix.1" addrspace(2)* %1, i64 0, i32 0, i64 1
+  %48 = load <4 x float>, <4 x float> addrspace(2)* %47, align 16, !tbaa !37, !alias.scope !38, !noalias !39
+  %49 = shufflevector <3 x float> %42, <3 x float> undef, <4 x i32> <i32 1, i32 1, i32 1, i32 1>
+  %50 = fmul fast <4 x float> %49, %48
+  %51 = getelementptr inbounds %"struct.metal::matrix.1", %"struct.metal::matrix.1" addrspace(2)* %1, i64 0, i32 0, i64 2
+  %52 = load <4 x float>, <4 x float> addrspace(2)* %51, align 16, !tbaa !37, !alias.scope !38, !noalias !39
+  %53 = shufflevector <3 x float> %42, <3 x float> undef, <4 x i32> <i32 2, i32 2, i32 2, i32 2>
+  %54 = fmul fast <4 x float> %53, %52
+  %55 = getelementptr inbounds %"struct.metal::matrix.1", %"struct.metal::matrix.1" addrspace(2)* %1, i64 0, i32 0, i64 3
+  %56 = load <4 x float>, <4 x float> addrspace(2)* %55, align 16, !tbaa !37, !alias.scope !38, !noalias !39
+  %57 = fadd fast <4 x float> %50, %56
+  %58 = fadd fast <4 x float> %57, %46
+  %59 = fadd fast <4 x float> %58, %54
+  %60 = insertvalue <{ <4 x float>, <2 x float> }> undef, <4 x float> %59, 0
+  %61 = insertvalue <{ <4 x float>, <2 x float> }> %60, <2 x float> %24, 1
+  ret <{ <4 x float>, <2 x float> }> %61
+}
+
+; Function Attrs: mustprogress nofree nosync nounwind readnone willreturn
